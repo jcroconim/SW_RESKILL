@@ -128,7 +128,7 @@
 #define PC5     11
 #define PC7     27
 
-//´Ü»ö LED
+//Â´ÃœÂ»Ã¶ LED
 #define PCL1   17
 #define PCL2   18
 
@@ -251,7 +251,7 @@ void init_LED(void)
 //Initialize Switch
 void init_Switch(void)
 {
-    //Set PC0 & PC1 pullup ÀúÇ×(0XX10) : p.13-24 Table 13-5
+    //Set PC0 & PC1 pullup Ã€ÃºÃ‡Ã—(0XX10) : p.13-24 Table 13-5
     //PCx | 10000 --> 10h | Push-Pull | General-purpose output
 
     //SW
@@ -285,7 +285,7 @@ void init_ERU(void)
     while((SCU_WDTSCON0 &(1 << LCK))==0);
 
 //SW1
-    SCU_EICR1 &~ ~((0x7) << EXIS0);         // External input 1 selected
+    SCU_EICR1 &= ~((0x7) << EXIS0);         // External input 1 selected
     SCU_EICR1 |=  ((0x1) << EXIS0);
 
     SCU_EICR1 |= (1<< FEN0);                // Falling edge enable
@@ -298,7 +298,7 @@ void init_ERU(void)
     SCU_IGCR0 |= ((0x1) << IGP0);           // The pattern is not considered
 
 //SW2
-    SCU_EICR1 &~ ~((0x7) << EXIS1);         // External input 2 selected
+    SCU_EICR1 &= ~((0x7) << EXIS1);         // External input 2 selected
     SCU_EICR1 |=  ((0x2) << EXIS1);
 
     SCU_EICR1 |= (1<< FEN1);                // Falling edge enable

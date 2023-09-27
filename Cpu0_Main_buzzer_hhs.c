@@ -150,10 +150,10 @@ IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
 #define PWM_FREQ        6250000
 
-//int num_tones = 8;
-//int tones[] = {261, 277, 294, 311, 330, 349, 370, 392};
-int num_tones = 1;
-int tones[] = {261};
+int num_tones = 12;
+int tones[] = {261, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494};
+//int num_tones = 1;
+//int tones[] = {261};
 
 int core0_main(void)
 {
@@ -199,14 +199,18 @@ void ERU_ISR_SW1(void)
 
 
 
+    for(int i = 0 ; i < num_tones ; i++)
+    {
+        int pwm_cnt = PWM_FREQ / tones[i];
 
-    int pwm_cnt = PWM_FREQ / 261;
+        GTM_TOM0_CH11_SR0 = pwm_cnt;
+        GTM_TOM0_CH11_SR1 = pwm_cnt / 2;
 
-    GTM_TOM0_CH11_SR0 = pwm_cnt;
-    GTM_TOM0_CH11_SR1 = pwm_cnt / 2;
+        for(int j = 0 ; j < 1200000 ; j++) ;
+    }
 
-    for(int j = 0 ; j < 5000000 ; j++) ;
-    GTM_TOM0_CH11_SR1 = 0;
+//   for(int j = 0 ; j < 5000000 ; j++) ;
+GTM_TOM0_CH11_SR1 = 0;
 
 
 
@@ -220,13 +224,19 @@ void ERU_ISR_SW2(void)
     PORT10_OMR |= ((1<<PCL2) | (1<<PS2));
 
 
-    int pwm_cnt = PWM_FREQ / 330;
+    for(int i = 0 ; i < num_tones ; i++)
+    {
+        int pwm_cnt = PWM_FREQ / tones[i];
 
-    GTM_TOM0_CH11_SR0 = pwm_cnt;
-    GTM_TOM0_CH11_SR1 = pwm_cnt / 2;
+        GTM_TOM0_CH11_SR0 = pwm_cnt;
+        GTM_TOM0_CH11_SR1 = pwm_cnt / 2;
 
-    for(int j = 0 ; j < 5000000 ; j++) ;
-    GTM_TOM0_CH11_SR1 = 0;
+        for(int j = 0 ; j < 1200000 ; j++) ;
+    }
+
+//   for(int j = 0 ; j < 5000000 ; j++) ;
+GTM_TOM0_CH11_SR1 = 0;
+
 
 
 
